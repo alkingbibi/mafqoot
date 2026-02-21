@@ -62,10 +62,10 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-  flutter_icons:
-    android: true
-    ios: true
-    image_path: "assets/app_icon.png"
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/app_icon.png"
 
   # To add assets to your application, add an assets section, like this:
   # assets:
