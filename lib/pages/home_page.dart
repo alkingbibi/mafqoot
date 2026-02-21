@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../models/report.dart';
 import 'add_report_page.dart';
 import 'report_details_page.dart';
@@ -28,12 +29,14 @@ class _HomePageState extends State<HomePage> {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (_) => ReportDetailsPage(
-                      report: report,
-                      heroTag: 'report_$index',
-                    )));
+          context,
+          MaterialPageRoute(
+            builder: (_) => ReportDetailsPage(
+              report: report,
+              heroTag: 'report_$index',
+            ),
+          ),
+        );
       },
       child: Hero(
         tag: 'report_$index',
@@ -64,8 +67,7 @@ class _HomePageState extends State<HomePage> {
                           fit: BoxFit.cover,
                         )
                       : Image.network(
-                          report.imageUrl ??
-                              'https://via.placeholder.com/80',
+                          report.imageUrl ?? 'https://via.placeholder.com/80',
                           width: 80,
                           height: 80,
                           fit: BoxFit.cover,
@@ -118,11 +120,22 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(fontSize: 18, color: Colors.grey),
               ),
             )
-          : ListView.builder(
-              itemCount: reports.length,
-              itemBuilder: (context, index) {
-                return buildCard(reports[index], index);
-              },
+          : AnimationLimiter(
+              child: ListView.builder(
+                itemCount: reports.length,
+                itemBuilder: (context, index) {
+                  return AnimationConfiguration.staggeredList(
+                    position: index,
+                    duration: const Duration(milliseconds: 500),
+                    child: SlideAnimation(
+                      verticalOffset: 50.0,
+                      child: FadeInAnimation(
+                        child: buildCard(reports[index], index),
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
       floatingActionButton: Container(
         decoration: BoxDecoration(
