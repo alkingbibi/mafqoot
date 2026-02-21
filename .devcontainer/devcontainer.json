@@ -1,0 +1,21 @@
+{
+  "name": "Flutter Stable Dev",
+  "image": "cirrusci/flutter:stable",
+
+  "postCreateCommand": "flutter doctor -v",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Dart-Code.flutter",
+        "Dart-Code.dart-code"
+      ],
+      "settings": {
+        "editor.formatOnSave": true
+      }
+    }
+  },
+
+  "forwardPorts": [],
+  "remoteUser": "root"
+}
